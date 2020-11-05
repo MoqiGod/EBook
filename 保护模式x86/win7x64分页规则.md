@@ -1,0 +1,15 @@
+win7x64分页规则
+
+PXE(x) ((((x>>0x27)&0x1ff)*8)+0xFFFFF6FB7DBED000)
+
+
+
+PPE(x) (((x>>0x1b)&0x1ffff8)+0xFFFFF6FB7DA00000)
+
+
+
+PDE(x) (((x>>0x12)&0x3ffffff8)-0x904C0000000)
+
+
+
+PTE(x) (((x>>9)&0x7FFFFFFFF8)-0x98000000000)

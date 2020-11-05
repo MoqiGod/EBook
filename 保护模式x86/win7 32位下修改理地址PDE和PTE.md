@@ -1,12 +1,16 @@
 #### win7 32位下修改高两G的物理地址PDE和PTE的U/S位属性
 
 ```
+
 #include "stdafx.h"
 #include <Windows.h>
-#define  PDE(i)(((i>>0x14)&0xffc)-0x3fd00000)			//逆向MmIsAddressValid得到的公式
-#define  PTE(i)(((i>>0xa)&0x3ffffc)-0x40000000)
+//逆向MmIsAddressValid得到的公式
+#define  PDE29912(x)(((x>>0x12)&0x3ff8)-0x3fa00000)	//29912
+#define  PTE29912(x)(((x>>0x9)&0x7FFFF8)-0x40000000)//29912
+#define  PDE(i)(((i>>0x14)&0xffc)-0x3fd00000)	//101012分页		
+#define  PTE(i)(((i>>0xa)&0x3ffffc)-0x40000000) //101012分页  //只需要替换宏就可以了
 #define  Ring0Begin 0x80000000
-#define  Ring0End 0xffffffff
+#define  Ring0End 0xffe00000
 int tmppde,tmppte;
 int tmpsize=0;
 __declspec(naked) void test()
