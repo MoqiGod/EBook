@@ -1,4 +1,8 @@
+### 切换CR3读取另一个进程的内存
+
 ```
+
+
 // ReadOtherProcessMemory.cpp :切换cr3读取另一个进程的数据实验
 #include "stdafx.h"
 #include <Windows.h>
@@ -103,7 +107,6 @@ __declspec(naked) void ReadMem()
 	__asm
 	{
 		
-
 		//切换新的CR3，并读取405000处的值，这个地址是我在另一个进程里打印出来的 肯定有物理页
 		mov eax,newcr3
 		mov cr3,eax
@@ -116,7 +119,6 @@ __declspec(naked) void ReadMem()
 		mov cr3,eax
 		ret       
 	}
-
 }
 __declspec(naked) void test()
 {
@@ -155,15 +157,12 @@ __declspec(naked) void test()
 }
 char buf[6] = {0,0,0,0,0x48,0};
 //参数为想读取的线性地址
-int testfun(int x)
+int testfun()
 {
 	//保存参数到全局变量，这里可以使用有参的调用门
-	parvaule = x;
+
 	printf("%x\n",test);
-	printf("请输入cr3:");
-	scanf("%x",&newcr3);
-	//先打印下本进程的405000
-	printf("%x\n",*(int*)0x405000);
+	printf("请挂上调用门");
 	system("pause");
 	__asm
 	{   push fs
@@ -172,18 +171,19 @@ int testfun(int x)
 	}
 
 	return tagvaule;
-
 }
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	int y = testfun(0x405000);
+	printf("请输入cr3:");
+	scanf("%x",&newcr3);
+	printf("请输入线形地址:");
+	scanf("%x",&parvaule);
+	int y = testfun();
 	printf("%x\n",y);
 	system("pause");
 	return 0;
 
 }
-
-
 ```
 
